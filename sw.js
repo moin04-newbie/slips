@@ -1,5 +1,5 @@
 /* Offline shell for slipsall.vercel.app — bump CACHE_VERSION after deploy when assets change */
-var CACHE_VERSION = 'slips-offline-v1';
+var CACHE_VERSION = 'slips-offline-v2';
 var PRECACHE_URLS = [
   '/',
   '/index.html',

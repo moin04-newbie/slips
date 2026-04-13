@@ -8,14 +8,11 @@
 (function () {
   'use strict';
 
-  function copyWithExecCommand(text, sourceElement) {
-    var el = sourceElement;
-    if (el && (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT')) {
-      el.focus();
-      el.select();
-      el.setSelectionRange(0, text.length);
-      return document.execCommand('copy');
-    }
+  /**
+   * Always copy the full string via a hidden textarea — selecting the on-page
+   * field can fail for very long content (all slips 1–30).
+   */
+  function copyWithExecCommand(text) {
     var ta = document.createElement('textarea');
     ta.value = text;
     ta.setAttribute('readonly', '');
@@ -35,15 +32,15 @@
     return ok;
   }
 
-  function copyToClipboard(text, sourceElement) {
+  function copyToClipboard(text) {
     if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
       return navigator.clipboard.writeText(text).then(function () {
         return true;
       }).catch(function () {
-        return copyWithExecCommand(text, sourceElement);
+        return copyWithExecCommand(text);
       });
     }
-    return Promise.resolve(copyWithExecCommand(text, sourceElement));
+    return Promise.resolve(copyWithExecCommand(text));
   }
 
   window.copyText = function () {
@@ -51,6 +48,7 @@
     var message = document.getElementById('copyMessage');
     if (!textBox || !message) return;
 
+    /* Entire textarea = SLIP 1 … SLIP 30 in one string */
     var text = textBox.value;
 
     function showCopied() {
@@ -60,7 +58,7 @@
       }, 2000);
     }
 
-    copyToClipboard(text, textBox).then(function (ok) {
+    copyToClipboard(text).then(function (ok) {
       if (ok) {
         showCopied();
       } else {
