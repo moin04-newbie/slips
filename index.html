@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d6efd">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Pre-Inserted Text Copy Project</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -5320,21 +5325,12 @@ public class MainActivity extends AppCompatActivity {
     <div id="copyMessage">✅ Text copied to clipboard!</div>
   </div>
 
+  <script src="copy-offline.js" defer></script>
   <script>
-    function copyText() {
-      const textBox = document.getElementById('textBox');
-      textBox.select();
-      textBox.setSelectionRange(0, 99999); // For mobile support
-
-      navigator.clipboard.writeText(textBox.value)
-        .then(() => {
-          const message = document.getElementById('copyMessage');
-          message.style.display = 'block';
-          setTimeout(() => message.style.display = 'none', 2000);
-        })
-        .catch(err => {
-          alert('Failed to copy: ' + err);
-        });
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
     }
   </script>
 

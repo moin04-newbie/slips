@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Slips">
+  <rect width="192" height="192" rx="28" fill="#0d6efd"/>
+  <rect x="44" y="40" width="104" height="112" rx="8" fill="#fff" opacity=".95"/>
+  <rect x="56" y="56" width="80" height="8" rx="2" fill="#0d6efd" opacity=".35"/>
+  <rect x="56" y="76" width="64" height="8" rx="2" fill="#0d6efd" opacity=".35"/>
+  <rect x="56" y="96" width="72" height="8" rx="2" fill="#0d6efd" opacity=".35"/>
+  <path fill="#fff" d="M152 48h-20a8 8 0 0 0-8-8H68a8 8 0 0 0-8 8v96a8 8 0 0 0 8 8h84a8 8 0 0 0 8-8V56a8 8 0 0 0-8-8z" opacity=".15"/>
+</svg>
